@@ -7,10 +7,7 @@ We'll need a Kafka cluster. The storage backend for our Service Registry  is Kaf
 
 In our example, both the Registry and the Kafka cluster used for storage, will share the same namespace so we won't have to deal with external access routes.
 
-Once the cluster is ready:
-
- - Install AMQ-Streams operator
- - Install Service Registry operator
+The Kafka cluster shoud be deployed using AMQ-Streams operator and the Service Registry using the Service Registry operator
 
 ## Kafka cluster configuration
 Use the values provided only as reference, they do work for a testing scenario but may not fit others. The number of brokers, zookeeper nodes, partitions per topics, ... should be reviewed if a more robuts deployment is needed.
