@@ -1,0 +1,113 @@
+apiVersion: kafka.strimzi.io/v1beta1
+kind: KafkaUser
+metadata:
+  name: service-registry-kafka-user-scram
+  labels:
+    strimzi.io/cluster: events-demo
+  namespace: redhat-lab
+spec:
+  authentication:
+    type: scram-sha-512
+  authorization:
+    type: simple  
+    acls:
+      - resource:
+          type: topic
+          name: storage-topic
+          patternType: literal
+        operation: Read
+        host: '*'
+      - resource:
+          type: topic
+          name: global-id-topic
+          patternType: literal
+        operation: Read
+        host: '*'        
+      - resource:
+          type: topic
+          name: storage-topic
+          patternType: literal
+        operation: Describe
+        host: '*'
+      - resource:
+          type: topic
+          name: global-id-topic
+          patternType: literal
+        operation: Describe
+        host: '*'        
+      - resource:
+          type: topic
+          name: storage-topic
+          patternType: literal
+        operation: Write
+        host: '*'
+      - resource:
+          type: topic
+          name: global-id-topic
+          patternType: literal
+        operation: Write
+        host: '*'        
+      - resource:
+          type: topic
+          name: storage-topic
+          patternType: literal
+        operation: Create
+        host: '*'
+      - resource:
+          type: topic
+          name: global-id-topic
+          patternType: literal
+        operation: Create
+        host: '*'   
+      - resource:
+          type: group
+          name: service-registry-scram
+          patternType: literal
+        operation: Read
+        host: "*"     
+      - resource:
+          type: topic
+          name: service-registry-scram-
+          patternType: prefix
+        operation: Read
+      - resource:
+          type: topic
+          name: service-registry-scram-
+          patternType: prefix
+        operation: Describe
+      - resource:
+          type: topic
+          name: service-registry-scram-
+          patternType: prefix
+        operation: Write
+      - resource:
+          type: topic
+          name: service-registry-scram-
+          patternType: prefix
+        operation: Create
+      # Rules for the local transactionalsIds created by our Service Registry instance
+      # Prefix equals to metadata.name property in ApicurioRegistry object
+      - resource:
+          type: transactionalId
+          name: service-registry-scram-
+          patternType: prefix
+        operation: Describe
+      - resource:
+          type: transactionalId
+          name: service-registry-scram-
+          patternType: prefix
+        operation: Write
+      # Rules for internal Apache Kafka topics
+      - resource:
+          type: topic
+          name: __consumer_offsets
+        operation: Read
+      - resource:
+          type: topic
+          name: __transaction_state
+        operation: Read
+      # Rules for Cluster objects
+      - resource:
+          type: cluster
+        operation: IdempotentWrite
+
