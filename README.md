@@ -41,5 +41,6 @@ Main data variables used in the deployment files
 They can be replaced to fit other scenarios.
 
 
-
+## References
+Román Martin's blog: https://blog.jromanmartin.io/2020/12/08/connecting-apicurio-registry-secured-strimzi.html
 
